@@ -46,15 +46,24 @@ impl Vec3 {
     }
 }
 
-fn dot_product(v1: Vec3, v2: Vec3) -> f64 {
-    return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+fn dot_product(u: Vec3, v: Vec3) -> f64 {
+    return (u.x * v.x) + (u.y * v.y) + (u.z * v.z);
 }
 
-fn abs_dot_product(v1: Vec3, v2: Vec3) -> f64 {
-    return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z)).abs();
+fn abs_dot_product(u: Vec3, v: Vec3) -> f64 {
+    return dot_product(u, v).abs();
 }
 
-fn cross_product() -> Vec3 {}
+// Use Fused Multiply Addition (FMA) (but for subtraction) to ensure high floating point accuracy. This avoids artifacts in rendered images
+fn cross_product(u: Vec3, v: Vec3) -> Vec3 {
+    return {
+        Vec3::new(
+            u.y.mul_add(v.z, -(u.z * v.y)), // i component: (u.y * v.z) - (u.z * v.y)
+            u.x.mul_add(v.z, -(u.z * v.x)), // j component: (u.x * v.z) - (u.z * v.x)
+            u.x.mul_add(v.y, -(u.y * v.x)), // k component: (u.x * v.y) - (u.y * v.x)
+        )
+    };
+}
 
 // TRANSFORMATIONS
 
