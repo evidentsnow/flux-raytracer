@@ -1,8 +1,16 @@
 use std::ops::Add;
 use std::ops::Mul;
 use std::ops::Sub;
+use std::vec;
 
 // GEOMETRY
+
+// 3D Point
+struct Point3 {
+    x: f64,
+    y: f64,
+    z: f64,
+};
 
 // 2D Vector
 struct Vec2 {
@@ -46,6 +54,36 @@ impl Vec3 {
     }
 }
 
+struct Normal3 { // Surface normals are like vectors, but CANNOT be added to a point, and one CANNOT take the cross product of two normals
+    x: f64, 
+    y: f64, 
+    z: f64
+}
+
+impl Normal3 {
+
+    // flip surface normal so it lies in the same hemisphere as a given vector
+    fn face_forward(normal: Normal3, vector: Vec3) -> Normal3 {
+
+        if (dot_product(normal.into(), vector) < 0) {
+            normal.x = -normal.x;
+            normal.y = -normal.y;
+            normal.z = -normal.z;
+            return normal
+        }
+        else {
+            return normal;
+        }
+        
+    }
+}
+
+impl From<Normal3> for Vec3 {
+    fn from(normal: Normal3) -> Self {
+        Vec3 { x: normal.x, y: normal.y, z: normal.z }
+    }
+}
+
 fn dot_product(u: Vec3, v: Vec3) -> f64 {
     return (u.x * v.x) + (u.y * v.y) + (u.z * v.z);
 }
@@ -63,6 +101,11 @@ fn cross_product(u: Vec3, v: Vec3) -> Vec3 {
             u.x.mul_add(v.y, -(u.y * v.x)), // k component: (u.x * v.y) - (u.y * v.x)
         )
     };
+}
+
+// Construct a local coordinate system given only a single normalized 3D Vector
+fn local_coordinate_system() {
+    // TODO
 }
 
 // TRANSFORMATIONS
