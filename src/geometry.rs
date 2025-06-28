@@ -20,10 +20,10 @@ struct Vec2 {
 }
 
 // 3D Vector
-struct Vec3 {
-    x: f64,
-    y: f64,
-    z: f64,
+pub struct Vec3 {
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
 }
 
 impl Add<Vec3> for Point3 {
@@ -121,25 +121,24 @@ struct Normal3 {
 }
 
 impl Normal3 {
-    // flip surface normal so it lies in the same hemisphere as a given vector
-    fn face_forward(normal: Normal3, vector: Vec3) -> Normal3 {
-        if (dot_product(normal.into(), vector) < 0.0) {
-            normal.x = -normal.x;
-            normal.y = -normal.y;
-            normal.z = -normal.z;
-            return normal;
-        } else {
-            return normal;
+    fn as_vec3(&self) -> Vec3 {
+        Vec3 {
+            x: self.x,
+            y: self.y,
+            z: self.z,
         }
     }
-}
 
-impl From<Normal3> for Vec3 {
-    fn from(normal: Normal3) -> Self {
-        Vec3 {
-            x: normal.x,
-            y: normal.y,
-            z: normal.z,
+    // flip surface normal so it lies in the same hemisphere as a given vector
+    fn face_forward(normal: Normal3, vector: Vec3) -> Normal3 {
+        if (dot_product(normal.as_vec3(), vector) < 0.0) {
+            Normal3 {
+                x: -normal.x,
+                y: -normal.y,
+                z: -normal.z,
+            }
+        } else {
+            return normal;
         }
     }
 }
