@@ -1,3 +1,11 @@
+use std::ops::{Add, AddAssign, Sub, SubAssign};
+
+// 2D Point
+struct Point2 {
+    x: f64,
+    y: f64,
+}
+
 // 3D Point
 struct Point3 {
     x: f64,
@@ -18,17 +26,69 @@ struct Vec3 {
     z: f64,
 }
 
+impl Add<Vec3> for Point3 {
+    type Output = Point3;
+
+    fn add(self, v: Vec3) -> Point3 {
+        Point3 {
+            x: self.x + v.x,
+            y: self.y + v.y,
+            z: self.z + v.z,
+        }
+    }
+}
+
+impl AddAssign<Vec3> for Point3 {
+    fn add_assign(&mut self, v: Vec3) {
+        self.x += v.x;
+        self.y += v.y;
+        self.z += v.z;
+    }
+}
+
+impl Add<Vec3> for Vec3 {
+    type Output = Vec3;
+
+    fn add(self, v: Vec3) -> Vec3 {
+        Vec3 {
+            x: self.x + v.x,
+            y: self.y + v.y,
+            z: self.z + v.z,
+        }
+    }
+}
+
+impl AddAssign<Vec3> for Vec3 {
+    fn add_assign(&mut self, v: Vec3) {
+        self.x += v.x;
+        self.y += v.y;
+        self.z += v.z;
+    }
+}
+
+impl Sub<Vec3> for Vec3 {
+    type Output = Vec3;
+
+    fn sub(self, v: Vec3) -> Vec3 {
+        Vec3 {
+            x: self.x - v.x,
+            y: self.y - v.y,
+            z: self.z - v.z,
+        }
+    }
+}
+
+impl SubAssign<Vec3> for Vec3 {
+    fn sub_assign(&mut self, v: Vec3) {
+        self.x -= v.x;
+        self.y -= v.y;
+        self.z -= v.z;
+    }
+}
+
 impl Vec3 {
     fn new(x: f64, y: f64, z: f64) -> Self {
         return Vec3 { x: x, y: y, z: z };
-    }
-
-    fn add_vectors(&self, vector: Vec3) -> Vec3 {
-        return Vec3::new(self.x + vector.x, self.y + vector.y, self.z + vector.z);
-    }
-
-    fn subtract_vectors(&self, vector: &Vec3) -> Vec3 {
-        return Vec3::new(self.x - vector.x, self.y - vector.y, self.z - vector.z);
     }
 
     fn scalar_multiplication(mut self, scalar: f64) -> Self {
