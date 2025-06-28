@@ -11,29 +11,26 @@ struct Vec2 {
 }
 
 // 3D Vector
-struct Vec3<T> {
-    x: T,
-    y: T,
-    z: T,
+struct Vec3 {
+    x: f64,
+    y: f64,
+    z: f64,
 }
 
-impl<T> Vec3<T>
-where
-    T: Add<Output = T> + Sub<Output = T> + Mul<Output = T> + Copy + Clone,
-{
-    fn new(x: T, y: T, z: T) -> Self {
+impl Vec3 {
+    fn new(x: f64, y: f64, z: f64) -> Self {
         return Vec3 { x: x, y: y, z: z };
     }
 
-    fn add_vectors(&self, vector: Vec3<T>) -> Vec3<T> {
+    fn add_vectors(&self, vector: Vec3) -> Vec3 {
         return Vec3::new(self.x + vector.x, self.y + vector.y, self.z + vector.z);
     }
 
-    fn subtract_vectors(&self, vector: &Vec3<T>) -> Vec3<T> {
+    fn subtract_vectors(&self, vector: &Vec3) -> Vec3 {
         return Vec3::new(self.x - vector.x, self.y - vector.y, self.z - vector.z);
     }
 
-    fn scalar_multiplication(mut self, scalar: T) -> Self {
+    fn scalar_multiplication(mut self, scalar: f64) -> Self {
         self.x = self.x * scalar;
         self.y = self.y * scalar;
         self.z = self.z * scalar;
@@ -42,22 +39,22 @@ where
 
     fn absolute_value_vector(self) -> Self {
         return Vec3 {
-            x: f64::abs(self.x),
-            y: f64::abs(self.y),
-            z: f64::abs(self.z),
+            x: self.x.abs(),
+            y: self.y.abs(),
+            z: self.z.abs(),
         };
     }
 }
 
-fn dot_product(v1: Vec<T>, v2: Vec<T>) -> T {
-    return (v1.x * v2.x) + (v1 * v2.y) + (v1 * v2.z);
+fn dot_product(v1: Vec3, v2: Vec3) -> f64 {
+    return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 }
 
-fn abs_dot_product(v1: Vec<T>, v2: Vec<T>) -> T {
-    return f64::abs((v1.x * v2.x) + (v1 * v2.y) + (v1 * v2.z));
+fn abs_dot_product(v1: Vec3, v2: Vec3) -> f64 {
+    return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z)).abs();
 }
 
-fn cross_product() -> Vec<T> {}
+fn cross_product() -> Vec3 {}
 
 // TRANSFORMATIONS
 
