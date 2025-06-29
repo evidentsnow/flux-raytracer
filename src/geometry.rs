@@ -7,10 +7,16 @@ struct Point2 {
 }
 
 // 3D Point
-struct Point3 {
-    x: f64,
-    y: f64,
-    z: f64,
+pub struct Point3 {
+    pub x: f64,
+    pub y: f64,
+    pub z: f64,
+}
+
+struct Color {
+    r: f64,
+    g: f64,
+    b: f64,
 }
 
 // 2D Vector
@@ -24,6 +30,17 @@ pub struct Vec3 {
     pub x: f64,
     pub y: f64,
     pub z: f64,
+}
+
+impl Color {
+    // Write out the pixel color components
+    fn write_color(pixel_color: Color) -> String {
+        // Translate [0,1] component values to byte range [0,255]
+        let rbyte = (255.0 * pixel_color.r).floor() as i32;
+        let gbyte = (255.0 * pixel_color.g).floor() as i32;
+        let bbyte = (255.0 * pixel_color.b).floor() as i32;
+        return format!("{} {} {}\n", rbyte, gbyte, bbyte);
+    }
 }
 
 impl Add<Vec3> for Point3 {
