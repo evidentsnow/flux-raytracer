@@ -1,9 +1,9 @@
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
 // 2D Point
-struct Point2 {
-    x: f64,
-    y: f64,
+pub struct Point2 {
+    pub x: f64,
+    pub y: f64,
 }
 
 // 3D Point
@@ -13,16 +13,16 @@ pub struct Point3 {
     pub z: f64,
 }
 
-struct Color {
-    r: f64,
-    g: f64,
-    b: f64,
+pub struct Color {
+    pub r: f64,
+    pub g: f64,
+    pub b: f64,
 }
 
 // 2D Vector
-struct Vec2 {
-    x: f64,
-    y: f64,
+pub struct Vec2 {
+    pub x: f64,
+    pub y: f64,
 }
 
 // 3D Vector
@@ -30,6 +30,24 @@ pub struct Vec3 {
     pub x: f64,
     pub y: f64,
     pub z: f64,
+}
+
+impl Point2 {
+    pub fn new(x: f64, y: f64) -> Point2 {
+        Point2 { x, y }
+    }
+}
+
+impl Point3 {
+    pub fn new(x: f64, y: f64, z: f64) -> Point3 {
+        Point3 { x, y, z }
+    }
+}
+
+impl Vec2 {
+    pub fn new(x: f64, y: f64) -> Vec2 {
+        Vec2 { x, y }
+    }
 }
 
 impl Color {
@@ -104,7 +122,7 @@ impl SubAssign<Vec3> for Vec3 {
 }
 
 impl Vec3 {
-    fn new(x: f64, y: f64, z: f64) -> Self {
+    pub fn new(x: f64, y: f64, z: f64) -> Self {
         return Vec3 { x: x, y: y, z: z };
     }
 
