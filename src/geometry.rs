@@ -1,18 +1,22 @@
 use std::ops::{Add, AddAssign, Sub, SubAssign};
 
 // 2D Point
+#[derive(Copy, Clone)]
 pub struct Point2 {
     pub x: f64,
     pub y: f64,
 }
 
 // 3D Point
+#[derive(Copy, Clone)]
 pub struct Point3 {
     pub x: f64,
     pub y: f64,
     pub z: f64,
 }
 
+// r, g and b range from 0.0 to 1.0
+#[derive(Copy, Clone)]
 pub struct Color {
     pub r: f64,
     pub g: f64,
@@ -20,16 +24,24 @@ pub struct Color {
 }
 
 // 2D Vector
+#[derive(Copy, Clone)]
 pub struct Vec2 {
     pub x: f64,
     pub y: f64,
 }
 
 // 3D Vector
+#[derive(Copy, Clone)]
 pub struct Vec3 {
     pub x: f64,
     pub y: f64,
     pub z: f64,
+}
+
+impl Color {
+    pub fn new(r: f64, g: f64, b: f64) -> Color {
+        Color { r, g, b }
+    }
 }
 
 impl Point2 {
@@ -52,7 +64,7 @@ impl Vec2 {
 
 impl Color {
     // Write out the pixel color components
-    fn write_color(pixel_color: Color) -> String {
+    pub fn write_color(pixel_color: Color) -> String {
         // Translate [0,1] component values to byte range [0,255]
         let rbyte = (255.0 * pixel_color.r).floor() as i32;
         let gbyte = (255.0 * pixel_color.g).floor() as i32;

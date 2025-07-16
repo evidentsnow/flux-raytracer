@@ -7,14 +7,18 @@ use crate::geometry::{Point3, Vec3};
 // t is a parameter, which affects the length of the ray
 // b is a vector representing the ray direction.
 
-struct Ray {
-    origin: Point3,
-    direction: Vec3,
+pub struct Ray {
+    pub origin: Point3,
+    pub direction: Vec3,
 }
 
 impl Ray {
+    pub fn new(origin: Point3, direction: Vec3) -> Ray {
+        Ray { origin, direction }
+    }
+
     // Get endpoint of ray
-    fn at(&self, t: f64) -> Point3 {
+    pub fn at(&self, t: f64) -> Point3 {
         return Point3 {
             x: self.origin.x + (t * self.direction.x),
             y: self.origin.y + (t * self.direction.y),
